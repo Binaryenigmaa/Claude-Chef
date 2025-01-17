@@ -1,0 +1,29 @@
+form {
+  display: flex;
+  height: 2rem;
+  gap: 1rem;
+}
+
+input,
+button {
+  font-family: Inter, sans-serif;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+input {
+  border: 1px solid #d1d5db;
+  width: 300px;
+  min-width: 100px;
+  flex-grow: 1;
+}
+
+button {
+  border: none;
+  background-color: #141413;
+  color: white;
+  width: 150px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  cursor: pointer;
+}
