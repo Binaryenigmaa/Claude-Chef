@@ -5,10 +5,13 @@ const Main = () => {
   const [ingredients, setIngredients] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const formElement = e.currentTarget;
+    const formData = new FormData(formElement);
     const newIngredient = formData.get("ingredient");
-    setIngredients(newIngredient);
-    console.log(ingredients);
+    formElement.reset();
+    // pushing into an array directly does not work instead use spread operator and create new array
+
+    setIngredients((item) => [...item, newIngredient]);
   };
 
   return (
