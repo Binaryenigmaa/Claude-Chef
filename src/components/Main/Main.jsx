@@ -1,32 +1,44 @@
 import React, { useState } from "react";
 import "./Main.css";
+import ClaudeRecipe from "../ClaudeRecipe/ClaudeRecipe";
+import IngredientList from "../IngredientList/IngredientList";
 
 const Main = () => {
   const [ingredients, setIngredients] = useState([]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formElement = e.currentTarget;
-    const formData = new FormData(formElement);
+  const [loading, setLoading] = useState(false);
+  const [recipeShown, setRecipeShown] = useState(false);
+
+  const handleSubmit = (formData) => {
     const newIngredient = formData.get("ingredient");
-    formElement.reset();
     // pushing into an array directly does not work instead use spread operator and create new array
 
     setIngredients((item) => [...item, newIngredient]);
   };
 
+  const getRecipeBtnHandler = (e) => {
+    setRecipeShown((prev) => !prev);
+  };
+
   return (
     <main>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="e.g. oregano" name="ingredient" />
-        <button type="submit">+ Add ingredient</button>
+      <form action={handleSubmit}>
+        <input
+          type="text"
+          placeholder="e.g. oregano"
+          name="ingredient"
+          required
+        />
+        <button type="submit" className="form-btn">
+          + Add ingredient
+        </button>
       </form>
-      <div className="Ingredient-list">
-        <ul>
-          {ingredients.map((ingredient) => {
-            return <li>{ingredient}</li>;
-          })}
-        </ul>
-      </div>
+      {ingredients.length > 0 && (
+        <IngredientList
+          ingredients={ingredients}
+          recipeHandler={getRecipeBtnHandler}
+        />
+      )}
+      {recipeShown && <ClaudeRecipe />}
     </main>
   );
 };
