@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import "./Main.css";
 import ClaudeRecipe from "../ClaudeRecipe/ClaudeRecipe";
 import IngredientList from "../IngredientList/IngredientList";
+import { getRecipeFromMistral } from "../../ClaudeAi.js";
 
 const Main = () => {
   const [ingredients, setIngredients] = useState([]);
+  // TODO Loading functionality
   const [loading, setLoading] = useState(false);
-  const [recipeShown, setRecipeShown] = useState(false);
+  const [Recipe, setRecipe] = useState("");
 
   const handleSubmit = (formData) => {
     const newIngredient = formData.get("ingredient");
@@ -15,8 +17,11 @@ const Main = () => {
     setIngredients((item) => [...item, newIngredient]);
   };
 
-  const getRecipeBtnHandler = (e) => {
-    setRecipeShown((prev) => !prev);
+  const getRecipeBtnHandler = async () => {
+    // send the ingredients array to clauderecipe.jsx
+    const generatedRecipe = await getRecipeFromMistral(ingredients);
+    // the response in generatedRecipe is a markdown.
+    setRecipe(generatedRecipe);
   };
 
   return (
@@ -38,7 +43,7 @@ const Main = () => {
           recipeHandler={getRecipeBtnHandler}
         />
       )}
-      {recipeShown && <ClaudeRecipe />}
+      {Recipe && <ClaudeRecipe ingredients={Recipe} />}
     </main>
   );
 };

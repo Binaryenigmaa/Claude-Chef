@@ -5,8 +5,8 @@ const IngredientList = (props) => {
     <section className="Ingredient-list-section">
       <h2>Ingredients on hand: </h2>
       <ul>
-        {props.ingredients.map((ingredient) => (
-          <li>{ingredient}</li>
+        {props.ingredients.map((ingredient, index) => (
+          <li key={index}>{ingredient}</li>
         ))}
       </ul>
       {props.ingredients.length > 3 && (
