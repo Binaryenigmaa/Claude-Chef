@@ -5,7 +5,7 @@ const ClaudeRecipe = (props) => {
   return (
     <section aria-live="polite">
       <h2>Chef Claude Recommends: </h2>
-      <Markdown>{props.ingredients}</Markdown>
+      <Markdown>{props.recipeReceived}</Markdown>
     </section>
   );
 };
